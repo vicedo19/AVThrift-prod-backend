@@ -2,36 +2,36 @@
   {
     "model": "catalog.category",
     "pk": 1,
-    "fields": {"name": "Electronics", "slug": "electronics", "description": "", "parent": null, "is_active": true, "sort_order": 0}
+    "fields": {"created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z", "name": "Electronics", "slug": "electronics", "description": "", "parent": null, "is_active": true, "sort_order": 0}
   },
   {
     "model": "catalog.category",
     "pk": 2,
-    "fields": {"name": "Audio", "slug": "audio", "description": "", "parent": 1, "is_active": true, "sort_order": 0}
+    "fields": {"created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z", "name": "Audio", "slug": "audio", "description": "", "parent": 1, "is_active": true, "sort_order": 0}
   },
   {
     "model": "catalog.product",
     "pk": 1,
-    "fields": {"title": "Vintage Receiver", "slug": "vintage-receiver", "description": "", "status": "published", "seo_title": "", "seo_description": "", "categories": [2]}
+    "fields": {"created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z", "title": "Vintage Receiver", "slug": "vintage-receiver", "description": "", "status": "published", "seo_title": "", "seo_description": "", "categories": [2]}
   },
   {
     "model": "catalog.productvariant",
     "pk": 1,
-    "fields": {"product": 1, "sku": "VR-001", "price": "250.00", "barcode": "", "status": "active"}
+    "fields": {"created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z", "product": 1, "sku": "VR-001", "price": "250.00", "barcode": "", "status": "active"}
   },
   {
     "model": "catalog.media",
     "pk": 1,
-    "fields": {"product": 1, "variant": null, "url": "https://example.com/vintage.jpg", "alt_text": "", "is_primary": true, "sort_order": 0}
+    "fields": {"created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z", "product": 1, "variant": null, "url": "https://example.com/vintage.jpg", "alt_text": "", "is_primary": true, "sort_order": 0}
   },
   {
     "model": "catalog.collection",
     "pk": 1,
-    "fields": {"name": "Featured", "slug": "featured", "description": "", "is_active": true, "sort_order": 0}
+    "fields": {"created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z", "name": "Featured", "slug": "featured", "description": "", "is_active": true, "sort_order": 0}
   },
   {
     "model": "catalog.collectionproduct",
     "pk": 1,
-    "fields": {"collection": 1, "product": 1, "sort_order": 1}
+    "fields": {"created_at": "2025-01-01T00:00:00Z", "updated_at": "2025-01-01T00:00:00Z", "collection": 1, "product": 1, "sort_order": 1}
   }
 ]

@@ -212,4 +212,13 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "E-commerce backend API for AVThrift",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
+    "ENUM_NAME_OVERRIDES": {
+        "ProductStatus": "common.choices.DraftPublished",
+        "ActiveInactiveStatus": "common.choices.ActiveInactive",
+        "OrderStatus": "common.choices.OrderStatus",
+        "PaymentIntentStatus": "common.choices.PaymentIntentStatus",
+        "ReservationState": "common.choices.ReservationState",
+        "Currency": "common.choices.Currency",
+        "PaymentProvider": "common.choices.PaymentProvider",
+    },
 }
