@@ -1,0 +1,12 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Catalog CSV Import</h1>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div>{{ form.kind.label_tag }} {{ form.kind }}</div>
+  <div>{{ form.file.label_tag }} {{ form.file }}</div>
+  <button type="submit" class="default">Import</button>
+</form>
+<p>Categories CSV: name,slug,parent</p>
+<p>Products CSV: title,slug,status,category_slugs</p>
+{% endblock %}
