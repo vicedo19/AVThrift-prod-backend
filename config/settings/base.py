@@ -22,10 +22,10 @@ PAYSTACK_WEBHOOK_IPS = config("PAYSTACK_WEBHOOK_IPS", default="", cast=Csv())
 
 # Orders webhook security (generic, defaults to Paystack settings if unset)
 ORDERS_WEBHOOK_SECRET = config("ORDERS_WEBHOOK_SECRET", default=PAYSTACK_SECRET_KEY)
-# Parse from env; if empty, fallback to Paystack IPs list
 ORDERS_WEBHOOK_ALLOWED_IPS = config("ORDERS_WEBHOOK_ALLOWED_IPS", default="", cast=Csv())
 if not ORDERS_WEBHOOK_ALLOWED_IPS:
     ORDERS_WEBHOOK_ALLOWED_IPS = PAYSTACK_WEBHOOK_IPS
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -91,51 +91,23 @@ CACHES = {
     }
 }
 
-# Cart / reservations
+# Cart / reservations TTL settings (in minutes)
 CART_RESERVATION_TTL_MINUTES = config("CART_RESERVATION_TTL_MINUTES", default=30, cast=int)
-# Cart abandonment TTL (minutes) for stale carts
 CART_ABANDON_TTL_MINUTES = config("CART_ABANDON_TTL_MINUTES", default=120, cast=int)
 
+
 # Database
-DB_ENGINE = config("DATABASE_ENGINE", default="sqlite")
-if DB_ENGINE.lower() == "postgres":
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": config("DATABASE_NAME", default="postgres"),
-            "USER": config("DATABASE_USER", default="postgres"),
-            "PASSWORD": config("DATABASE_PASSWORD", default=""),
-            "HOST": config("DATABASE_HOST", default="localhost"),
-            "PORT": config("DATABASE_PORT", default="5432"),
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("DATABASE_NAME", default="postgres"),
+        "USER": config("DATABASE_USER", default="postgres"),
+        "PASSWORD": config("DATABASE_PASSWORD", default=""),
+        "HOST": config("DATABASE_HOST", default="localhost"),
+        "PORT": config("DATABASE_PORT", default="5432"),
     }
-elif DB_ENGINE.lower() == "mysql":
-    # MySQL (InnoDB) support for local dev/testing
-    _options = {}
-    _init_cmd = config("MYSQL_INIT_COMMAND", default="")
-    if _init_cmd:
-        _options["init_command"] = _init_cmd
-    _sql_mode = config("MYSQL_SQL_MODE", default="")
-    if _sql_mode:
-        _options["sql_mode"] = _sql_mode
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": config("DATABASE_NAME", default="avthrift"),
-            "USER": config("DATABASE_USER", default="root"),
-            "PASSWORD": config("DATABASE_PASSWORD", default=""),
-            "HOST": config("DATABASE_HOST", default="localhost"),
-            "PORT": config("DATABASE_PORT", default="3306"),
-            "OPTIONS": _options,
-        }
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+}
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -167,10 +139,7 @@ AUTH_USER_MODEL = "users.User"
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
 # Email (dev defaults to console backend; override via env for SMTP)
-EMAIL_BACKEND = config(
-    "EMAIL_BACKEND",
-    default="django.core.mail.backends.console.EmailBackend",
-)
+EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
 EMAIL_HOST = config("EMAIL_HOST", default="")
 EMAIL_PORT = config("EMAIL_PORT", default=587, cast=int)
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
@@ -178,6 +147,7 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 EMAIL_USE_SSL = config("EMAIL_USE_SSL", default=False, cast=bool)
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="AVThrift <noreply@example.com>")
+
 
 # DRF + Spectacular
 REST_FRAMEWORK = {
