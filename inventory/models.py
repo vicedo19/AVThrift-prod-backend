@@ -17,14 +17,14 @@ class StockItem(TimeStampedModel):
     class Meta:
         ordering = ["-updated_at", "id"]
         constraints = [
-            models.CheckConstraint(name="stock_non_negative", check=models.Q(quantity__gte=0)),
-            models.CheckConstraint(name="reserved_non_negative", check=models.Q(reserved__gte=0)),
+            models.CheckConstraint(name="stock_non_negative", condition=models.Q(quantity__gte=0)),
+            models.CheckConstraint(name="reserved_non_negative", condition=models.Q(reserved__gte=0)),
             models.CheckConstraint(
                 name="reserved_le_quantity",
-                check=models.Q(reserved__lte=models.F("quantity")),
+                condition=models.Q(reserved__lte=models.F("quantity")),
             ),
             models.UniqueConstraint(fields=["variant"], name="unique_stockitem_per_variant"),
-            models.CheckConstraint(name="stockitem_variant_not_null", check=models.Q(variant__isnull=False)),
+            models.CheckConstraint(name="stockitem_variant_not_null", condition=models.Q(variant__isnull=False)),
         ]
         indexes = [
             models.Index(fields=["variant"]),
@@ -50,7 +50,7 @@ class StockMovement(TimeStampedModel):
     class Meta:
         ordering = ["-created_at", "id"]
         constraints = [
-            models.CheckConstraint(name="movement_non_zero", check=~models.Q(quantity=0)),
+            models.CheckConstraint(name="movement_non_zero", condition=~models.Q(quantity=0)),
         ]
 
     def __str__(self) -> str:  # pragma: no cover
@@ -72,7 +72,7 @@ class StockReservation(TimeStampedModel):
     class Meta:
         ordering = ["-created_at", "id"]
         constraints = [
-            models.CheckConstraint(name="reservation_positive_qty", check=models.Q(quantity__gt=0)),
+            models.CheckConstraint(name="reservation_positive_qty", condition=models.Q(quantity__gt=0)),
         ]
         indexes = [
             models.Index(fields=["variant"]),

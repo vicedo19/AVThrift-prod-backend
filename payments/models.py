@@ -59,7 +59,7 @@ class PaymentIntent(TimeStampedModel):
             models.Index(fields=["order", "status", "created_at"]),
         ]
         constraints = [
-            models.CheckConstraint(check=models.Q(amount__gte=0), name="paymentintent_amount_non_negative"),
+            models.CheckConstraint(condition=models.Q(amount__gte=0), name="paymentintent_amount_non_negative"),
         ]
 
     def __str__(self) -> str:  # pragma: no cover

@@ -40,7 +40,7 @@ class Cart(TimeStampedModel):
             # Ensure one of user or session_id is set, but not both
             models.CheckConstraint(
                 name="cart_user_xor_session",
-                check=(
+                condition=(
                     (models.Q(user__isnull=False) & models.Q(session_id__isnull=True))
                     | (models.Q(user__isnull=True) & models.Q(session_id__isnull=False))
                 ),
@@ -85,7 +85,7 @@ class CartItem(TimeStampedModel):
             models.UniqueConstraint(fields=["cart", "variant"], name="unique_variant_per_cart"),
             models.CheckConstraint(
                 name="quantity_positive",
-                check=models.Q(quantity__gte=1),
+                condition=models.Q(quantity__gte=1),
             ),
         ]
         indexes = [

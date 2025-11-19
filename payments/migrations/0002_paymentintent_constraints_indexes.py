@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddConstraint(
             model_name="paymentintent",
             constraint=models.CheckConstraint(
-                check=models.Q(("amount__gte", 0)), name="paymentintent_amount_non_negative"
+                condition=models.Q(("amount__gte", 0)), name="paymentintent_amount_non_negative"
             ),
         ),
     ]

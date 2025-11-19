@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
             model_name="cart",
             constraint=models.CheckConstraint(
                 name="cart_user_xor_session",
-                check=(
+                condition=(
                     (models.Q(("user__isnull", False)) & models.Q(("session_id__isnull", True)))
                     | (models.Q(("user__isnull", True)) & models.Q(("session_id__isnull", False)))
                 ),

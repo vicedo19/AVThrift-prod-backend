@@ -60,6 +60,7 @@ class UserAdmin(BaseUserAdmin):
 
     actions = ["send_verification_email"]
 
+    @admin.action(description="Send verification email")
     def send_verification_email(self, request, queryset):
         """Admin action to send email verification to selected users.
 
@@ -86,8 +87,6 @@ class UserAdmin(BaseUserAdmin):
             messages.success(request, f"Sent verification email to {sent} user(s).")
         if skipped:
             messages.info(request, f"Skipped {skipped} user(s) without email or already verified.")
-
-    send_verification_email.short_description = "Send verification email"
 
 
 # Additional admin registrations can be added here as new models land.

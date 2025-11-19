@@ -53,7 +53,7 @@ class OrderItem(TimeStampedModel):
             models.Index(fields=["order", "variant"]),
         ]
         constraints = [
-            models.CheckConstraint(name="orderitem_price_non_negative", check=models.Q(unit_price__gte=0)),
+            models.CheckConstraint(name="orderitem_price_non_negative", condition=models.Q(unit_price__gte=0)),
         ]
 
     def __str__(self) -> str:  # pragma: no cover

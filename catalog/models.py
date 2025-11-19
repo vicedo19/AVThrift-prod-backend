@@ -97,7 +97,7 @@ class ProductVariant(TimeStampedModel):
         constraints = [
             models.CheckConstraint(
                 name="variant_price_non_negative",
-                check=models.Q(price__gte=0) | models.Q(price__isnull=True),
+                condition=models.Q(price__gte=0) | models.Q(price__isnull=True),
             ),
         ]
         indexes = [
@@ -125,7 +125,7 @@ class ProductAttributeValue(TimeStampedModel):
         constraints = [
             models.CheckConstraint(
                 name="pav_xor_product_variant",
-                check=(
+                condition=(
                     models.Q(product__isnull=False, variant__isnull=True)
                     | models.Q(product__isnull=True, variant__isnull=False)
                 ),

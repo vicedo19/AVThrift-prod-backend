@@ -331,7 +331,7 @@ class OrderPaymentWebhookView(APIView):
                         "reason": reason,
                         "path": str(request.path),
                         "method": str(request.method),
-                        "ip": (request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0].strip())
+                        "ip": (request.headers.get("x-forwarded-for", "").split(",")[0].strip())
                         or request.META.get("REMOTE_ADDR", ""),
                     },
                 )

@@ -200,7 +200,7 @@ class PaystackInitializeView(APIView):
         ],
     )
     def post(self, request, *args, **kwargs):
-        idem_key = request.headers.get("Idempotency-Key") or request.META.get("HTTP_IDEMPOTENCY_KEY")
+        idem_key = request.headers.get("Idempotency-Key") or request.headers.get("idempotency-key")
         serializer = PaystackInitializeSerializer(data=request.data)
         if not serializer.is_valid():
             errs = serializer.errors or {}
@@ -338,7 +338,7 @@ class PaystackWebhookView(APIView):
     )
     def post(self, request, *args, **kwargs):
         raw = request.body or b""
-        sig = request.headers.get("x-paystack-signature") or request.META.get("HTTP_X_PAYSTACK_SIGNATURE")
+        sig = request.headers.get("x-paystack-signature") or request.headers.get("x-paystack-signature")
         if not validate_paystack_signature(raw, sig or ""):
             logger.warning(
                 "payments_webhook_invalid_signature",

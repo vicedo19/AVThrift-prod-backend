@@ -218,7 +218,7 @@ def verify_orders_webhook(request) -> Tuple[bool, Optional[str]]:
             return True, None
         # Fallback to IP allowlist
         if allowed_ips:
-            ip = (request.META.get("HTTP_X_FORWARDED_FOR", "").split(",")[0].strip()) or request.META.get(
+            ip = (request.headers.get("x-forwarded-for", "").split(",")[0].strip()) or request.META.get(
                 "REMOTE_ADDR", ""
             )
             if ip and ip in allowed_ips:
