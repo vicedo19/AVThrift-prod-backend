@@ -34,6 +34,7 @@ media/
 Thumbs.db
 *.swp
 *.swo
+.ruff*
 
 # Logs
 *.log
