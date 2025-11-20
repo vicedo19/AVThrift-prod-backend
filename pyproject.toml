@@ -58,7 +58,7 @@ dev = [
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings.test"
 python_files = ["test_*.py", "*_test.py"]
-addopts = "-q --disable-warnings --cov=orders --cov-report=term-missing --cov-fail-under=95"
+addopts = "-q --disable-warnings --cov=orders --cov-report=term-missing --cov-fail-under=100"
 
 [tool.coverage.run]
 branch = true

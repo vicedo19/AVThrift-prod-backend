@@ -253,9 +253,8 @@ def update_order_contact(
         if any(not shipping_address.get(k) for k in required):
             raise ValueError("Missing address fields")
         addr = dict(shipping_address)
-        # Normalize country code
-        if "country" in addr:
-            addr["country"] = str(addr["country"]).upper()
+        # Normalize country code (country presence is required above)
+        addr["country"] = str(addr["country"]).upper()
         updates["shipping_address"] = addr
     if updates:
         for field, value in updates.items():

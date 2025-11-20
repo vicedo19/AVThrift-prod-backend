@@ -57,7 +57,6 @@ LOGGING = {
     },
     "filters": {
         # Sample INFO logs for orders to reduce noise, while never sampling
-        # explicit event names we consider critical for auditability.
         "orders_info_sample": {
             "()": "config.logging.SamplingFilter",
             "rate": config("ORDERS_LOG_SAMPLE_RATE", default=1.0, cast=float),

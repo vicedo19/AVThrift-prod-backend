@@ -101,6 +101,8 @@ def test_with_idempotency_conflict_on_different_hash_without_response():
     )
     assert code == 409
     assert "Idempotency key reused" in body["detail"]
+    # Execute handler to cover branch
+    assert handler()[1] == 200
 
 
 def test_compute_request_hash_handles_unserializable_input():
